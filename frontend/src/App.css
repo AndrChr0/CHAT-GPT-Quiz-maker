@@ -1,0 +1,12 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+.api-res {
+  border: black 1px solid;
+  width: 110ch;
+  font-size: 20px;
+  line-height: 1.5;
+  padding: 1em;
+}

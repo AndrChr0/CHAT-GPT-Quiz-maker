@@ -1,25 +1,22 @@
 import express from "express";
 import { config } from "dotenv";
 import askTheRobot from "./ai.js";
+import cors from "cors";
+
 config();
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-// });
+app.use(cors());
 
 app.post("/ask", async (req, res) => {
-  //   const { prompt } = req.query;
   console.log(req.body);
   const response = req.body.prompt;
-  res.send(response);
+  const aIres = await askTheRobot(response);
+  res.send(aIres);
 });
 
-console.log(askTheRobot("What is the capital of France"));
-
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Listening on port ${port}`);
 });
