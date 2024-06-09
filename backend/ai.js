@@ -5,7 +5,7 @@ import OpenAI from "openai";
 
 const openai = new OpenAI({ apiKey: process.env.API_KEY });
 
-async function main(prompt) {
+async function askTheRobot(prompt) {
   const completion = await openai.chat.completions.create({
     messages: [{ role: "user", content: prompt }],
     model: "gpt-3.5-turbo",
@@ -15,6 +15,6 @@ async function main(prompt) {
   return completion.choices[0].message.content;
 }
 
-main();
+// main();
 
-export default main;
+export default askTheRobot;
