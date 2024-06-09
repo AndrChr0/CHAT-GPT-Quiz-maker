@@ -6,22 +6,37 @@ import QuestionBlock from "./components/QuestionBlock";
 function App() {
   const [nr, setNr] = useState(0);
   const [topic, setTopic] = useState("");
-
   const [apiRes, setApiRes] = useState("");
-  const [er, setEr] = useState("");
+  const [error, setError] = useState("");
+
+  function clear() {
+    setApiRes("");
+    setError("");
+    setTopic("");
+    setNr(0);
+  }
 
   function handleSubmission(event) {
     event.preventDefault();
-    if (!prompt) {
-      setEr("a prompt cannot be empty");
+    if (nr === 0) {
+      setError("Please select amount of questions");
+      return;
+    } else if (nr < 0) {
+      setError("Number can not be under 0");
       return;
     }
+
+    if (topic === "") {
+      setError("Please select a topic");
+      return;
+    }
+
     axios
       .post("http://localhost:1010/ask", { nr: nr, topic: topic })
       .then((res) => {
         console.log(res);
         setApiRes(res.data);
-        setEr("");
+        setError("");
       })
       .catch((err) => {
         console.log(err);
@@ -33,7 +48,7 @@ function App() {
     <>
       <h1>Quiz creator</h1>
       <form onSubmit={handleSubmission}>
-        <label htmlFor="nr">Nr of questions</label>
+        <label htmlFor="nr">Number of questions</label>
         <input
           id="nr"
           type="number"
@@ -55,8 +70,7 @@ function App() {
       <button
         type="button"
         onClick={() => {
-          setApiRes("");
-          setEr("");
+          clear();
         }}
       >
         CLEAR
@@ -64,7 +78,7 @@ function App() {
       {apiRes &&
         apiRes.map((qb) => (
           <QuestionBlock
-            key={qb.question} // Assuming 'question' is unique. If not, use a unique key.
+            key={qb.question}
             q={qb.question}
             a1={qb.a}
             a2={qb.b}
@@ -72,7 +86,7 @@ function App() {
             answer={qb.answer}
           />
         ))}
-      {er && <div>{er}</div>}
+      {error && <div>{error}</div>}
     </>
   );
 }

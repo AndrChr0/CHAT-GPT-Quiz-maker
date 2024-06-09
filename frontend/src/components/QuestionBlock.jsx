@@ -36,4 +36,12 @@ function QuestionBlock({ q, a1, a2, a3, answer }) {
   );
 }
 
+QuestionBlock.defaultProps = {
+  q: "question",
+  a1: "alternative 1",
+  a2: "alternative 2",
+  a3: "alternative 3",
+  answer: "answer",
+};
+
 export default QuestionBlock;
