@@ -16,7 +16,7 @@ async function askTheRobot(nr, topic) {
         a) Alternative a
         b) Alternative b
         c) Alternative c
-        Answer: answer (answer shoul be either 'a', 'b' or 'c')
+        Answer: answer (answer should be either 'a', 'b' or 'c')
 
         Only one question can be correct
         `,

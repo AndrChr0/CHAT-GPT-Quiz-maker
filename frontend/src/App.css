@@ -28,6 +28,16 @@ h1 {
   color: black;
 }
 
+.correct__count {
+  font-size: 1.5em;
+  font-weight: bold;
+  /* margin: 1em; */
+  position: sticky;
+  top: 0;
+  background-color: black;
+  /* width: 100%; */
+}
+
 .config__form {
   display: flex;
   flex-direction: column;

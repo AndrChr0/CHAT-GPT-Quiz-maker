@@ -6,6 +6,7 @@ function QuestionBlock({
   a2 = "alternative 2",
   a3 = "alternative 3",
   answer = "answer",
+  userDidVote,
 }) {
   const [isCorrect, setIsCorrect] = useState("");
   const [canVote, setCanVote] = useState(true);
@@ -23,6 +24,7 @@ function QuestionBlock({
     if (x === answer) {
       setIsCorrect("true");
       setCanVote(false);
+      userDidVote();
     }
   }
 

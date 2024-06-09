@@ -10,6 +10,11 @@ function App() {
   const [apiRes, setApiRes] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+
+  function userDidVote() {
+    setCorrectCount((prevCount) => prevCount + 1);
+  }
 
   function clear() {
     setApiRes("");
@@ -94,6 +99,12 @@ function App() {
       >
         CLEAR
       </button>
+      {apiRes && apiRes.length > 1 && (
+        <div className="correct__count">
+          Correct answers: {correctCount}/{apiRes.length}
+        </div>
+      )}
+
       {apiRes &&
         apiRes.map((qb) => (
           <QuestionBlock
@@ -103,6 +114,7 @@ function App() {
             a2={qb.b}
             a3={qb.c}
             answer={qb.answer}
+            userDidVote={userDidVote}
           />
         ))}
       {error && <div>{error}</div>}
