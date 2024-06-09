@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-function QuestionBlock({ q, a1, a2, a3, answer }) {
+function QuestionBlock({
+  q = "question",
+  a1 = "alternative 1",
+  a2 = "alternative 2",
+  a3 = "alternative 3",
+  answer = "answer",
+}) {
   const [isCorrect, setIsCorrect] = useState("");
   const [canVote, setCanVote] = useState(true);
 
@@ -21,27 +27,31 @@ function QuestionBlock({ q, a1, a2, a3, answer }) {
   }
 
   return (
-    <div>
-      <p>{q}</p>
+    <div className="question__container">
+      <p tabIndex={0} className="question">
+        {q}
+      </p>
       <ul className="qb-list">
-        <li onClick={() => handleVote("a")}>{a1}</li>
-        <li onClick={() => handleVote("b")}>{a2}</li>
-        <li onClick={() => handleVote("c")}>{a3}</li>
+        <button tabIndex={0} onClick={() => handleVote("a")}>
+          {a1}
+        </button>
+        <button tabIndex={0} onClick={() => handleVote("b")}>
+          {a2}
+        </button>
+        <button tabIndex={0} onClick={() => handleVote("c")}>
+          {a3}
+        </button>
         {isCorrect === "false" && (
-          <div>Wrong! Correct answer was: {answer.toUpperCase()}</div>
+          <div className="answer_result--wrong">
+            Wrong! Correct answer was {answer.toUpperCase()}
+          </div>
         )}
-        {isCorrect === "true" && <div>Correct!</div>}
+        {isCorrect === "true" && (
+          <div className="answer_result--correct">Correct!</div>
+        )}
       </ul>
     </div>
   );
 }
-
-QuestionBlock.defaultProps = {
-  q: "question",
-  a1: "alternative 1",
-  a2: "alternative 2",
-  a3: "alternative 3",
-  answer: "answer",
-};
 
 export default QuestionBlock;
