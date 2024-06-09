@@ -1,9 +1,12 @@
 import { useState } from "react";
 import "./App.css";
 import axios from "axios";
+import QuestionBlock from "./components/QuestionBlock";
 
 function App() {
-  const [prompt, setPrompt] = useState("");
+  const [nr, setNr] = useState(0);
+  const [topic, setTopic] = useState("");
+
   const [apiRes, setApiRes] = useState("");
   const [er, setEr] = useState("");
 
@@ -14,11 +17,10 @@ function App() {
       return;
     }
     axios
-      .post("http://localhost:1010/ask", { prompt: prompt })
+      .post("http://localhost:1010/ask", { nr: nr, topic: topic })
       .then((res) => {
         console.log(res);
         setApiRes(res.data);
-        setPrompt("");
         setEr("");
       })
       .catch((err) => {
@@ -26,14 +28,25 @@ function App() {
       });
   }
 
+  console.log(apiRes);
   return (
     <>
-      <h1>ChatGPT at Home</h1>
+      <h1>Quiz creator</h1>
       <form onSubmit={handleSubmission}>
+        <label htmlFor="nr">Nr of questions</label>
         <input
+          id="nr"
+          type="number"
+          value={nr}
+          onChange={(e) => setNr(e.target.value)}
+        />
+
+        <label htmlFor="topic">Topic</label>
+        <input
+          id="topic"
           type="text"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
         />
 
         <button type="submit">POST</button>
@@ -43,13 +56,22 @@ function App() {
         type="button"
         onClick={() => {
           setApiRes("");
-          setPrompt("");
           setEr("");
         }}
       >
         CLEAR
       </button>
-      {apiRes && <div className="api-res">{apiRes}</div>}
+      {apiRes &&
+        apiRes.map((qb) => (
+          <QuestionBlock
+            key={qb.question} // Assuming 'question' is unique. If not, use a unique key.
+            q={qb.question}
+            a1={qb.a}
+            a2={qb.b}
+            a3={qb.c}
+            answer={qb.answer}
+          />
+        ))}
       {er && <div>{er}</div>}
     </>
   );

@@ -10,3 +10,7 @@
   line-height: 1.5;
   padding: 1em;
 }
+
+.qb-list {
+  list-style: upper-alpha;
+}

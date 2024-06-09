@@ -12,8 +12,9 @@ app.use(cors());
 
 app.post("/ask", async (req, res) => {
   console.log(req.body);
-  const response = req.body.prompt;
-  const aIres = await askTheRobot(response);
+  const NR = req.body.nr;
+  const TOPIC = req.body.topic;
+  const aIres = await askTheRobot(NR, TOPIC);
   res.send(aIres);
 });
 
