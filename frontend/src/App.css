@@ -19,7 +19,6 @@ body {
 }
 
 h1 {
-  /* text-align: center; */
   font-size: 2.5em;
   margin: 1em;
 }
@@ -31,17 +30,15 @@ h1 {
 .correct__count {
   font-size: 1.5em;
   font-weight: bold;
-  /* margin: 1em; */
+  margin-top: 0.5em;
   position: sticky;
   top: 0;
   background-color: black;
-  /* width: 100%; */
 }
 
 .config__form {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   margin-bottom: 1em;
   padding: 1em;
   border: 1px solid black;
@@ -79,9 +76,10 @@ h1 {
 
 .button__clear {
   background-color: black;
-  border: 1px red solid;
-  color: red;
+  border: 1px rgb(255, 255, 255) solid;
+  color: rgb(255, 255, 255);
   margin-left: 2em;
+  font-weight: 700;
 }
 
 .button__clear:hover {
@@ -104,7 +102,6 @@ h1 {
   && button {
     margin: 0.3em 0;
     padding: 0.4em;
-    /* background-color: rgb(165, 216, 250); */
     background-color: var(--primary-blue);
     width: 100%;
     border-radius: 3px;
@@ -114,7 +111,6 @@ h1 {
     font-weight: bold;
   }
   && button:hover {
-    /* background-color: rgb(165, 216, 250, 0.5); */
     background-color: var(--secondary-blue);
     scale: 1.01;
     cursor: pointer;
@@ -129,9 +125,7 @@ h1 {
 }
 
 .question__container {
-  /* border: black 1px solid; */
   width: 70vw;
-  /* margin: 1em auto; */
   padding: 1em;
 }
 
@@ -156,8 +150,6 @@ footer {
   text-align: center;
   padding: 1em;
 }
-
-/* media queries */
 
 @media (min-width: 700px) {
   .question__container {

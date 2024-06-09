@@ -14,6 +14,7 @@ app.post("/ask", async (req, res) => {
   console.log(req.body);
   const NR = req.body.nr;
   const TOPIC = req.body.topic;
+  const DIFFICULTY = req.body.difficulty;
   const aIres = await askTheRobot(NR, TOPIC);
   res.send(aIres);
 });

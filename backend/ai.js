@@ -5,12 +5,15 @@ import OpenAI from "openai";
 
 const openai = new OpenAI({ apiKey: process.env.API_KEY });
 
-async function askTheRobot(nr, topic) {
+async function askTheRobot(nr, topic, difficulty) {
   const completion = await openai.chat.completions.create({
     messages: [
       {
         role: "user",
         content: `Create a ${nr}-questioned quiz where the topic is ${topic}.
+
+        The difficulty should be ${difficulty}.
+
         Each question should have three answer alternatives structured like this:
         The question
         a) Alternative a

@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 function App() {
   const [nr, setNr] = useState(5);
   const [topic, setTopic] = useState("");
+  const [difficulty, setDifficulty] = useState("easy");
+
   const [apiRes, setApiRes] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -43,16 +45,21 @@ function App() {
 
     const makeRequest = () => {
       axios
-        .post("http://localhost:1010/ask", { nr: nr, topic: topic })
+        .post("http://localhost:1010/ask", {
+          nr: nr,
+          topic: topic,
+          difficulty: difficulty,
+        })
         .then((res) => {
           const data = res.data;
           if (Object.keys(data[0]).length === 1) {
             setError("Generated quiz failed, retrying...");
-            makeRequest(); // Retry the request
+            makeRequest();
           } else {
             setApiRes(data);
             setError("");
             setIsLoading(false);
+            setCorrectCount(0);
           }
         })
         .catch((err) => {
@@ -61,12 +68,12 @@ function App() {
         });
     };
 
-    makeRequest(); // Initial request
+    makeRequest();
   }
 
   return (
     <div className="quiz__container">
-      <h1> Quiz Creator</h1>
+      <h1>&#128161; Quiz Creator </h1>
       <form className="config__form" onSubmit={handleSubmission}>
         <label htmlFor="nr">Number of questions</label>
 
@@ -84,6 +91,17 @@ function App() {
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
         />
+
+        <label htmlFor="difficulty">Difficulty</label>
+        <select
+          id="difficulty"
+          name="difficulty"
+          onChange={(e) => setDifficulty(e.target.value)}
+        >
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
 
         <button type="submit">Generate</button>
 
